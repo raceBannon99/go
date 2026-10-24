@@ -7,7 +7,7 @@
 <body>
 <p id="msg">Redirecting…</p>
 <script>
-fetch('/go/redirects.json')
+fetch('/go/redirects.json?v=' + Date.now(), { cache: 'no-store' })
   .then(function (r) { return r.json(); })
   .then(function (map) {
     var code = location.pathname.replace(/^\/go\//, '').replace(/\/$/, '');
