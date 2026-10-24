@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Redirecting…</title>
+</head>
+<body>
+<p id="msg">Redirecting…</p>
+<script>
+fetch('/go/redirects.json')
+  .then(function (r) { return r.json(); })
+  .then(function (map) {
+    var code = location.pathname.replace(/^\/go\//, '').replace(/\/$/, '');
+    var target = map[code];
+    if (target) {
+      location.replace(target);
+    } else {
+      document.getElementById('msg').textContent = 'Unknown short link: ' + code;
+    }
+  })
+  .catch(function () {
+    document.getElementById('msg').textContent = 'Could not load redirect map.';
+  });
+</script>
+</body>
+</html>
